@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
+/* Class-based dark mode so the toggle can override the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand — 500 is sampled from the supplied logo artwork (#0ebf6b).
+     500 is the identity colour: logo, icons, active states, highlights.
+     700 is the button fill in light mode — the bright green cannot carry
+     white text (about 2.9:1, well under the 4.5:1 minimum), so filled
+     controls step down to a deeper green that reads as the same family. */
+  --color-brand-50: #ecfdf3;
+  --color-brand-100: #d1fae1;
+  --color-brand-200: #a4f3c6;
+  --color-brand-300: #6be7a4;
+  --color-brand-400: #34d67f;
+  --color-brand-500: #0ebf6b;
+  --color-brand-600: #0fa557;
+  --color-brand-700: #0a8746;
+  --color-brand-800: #086b39;
+  --color-brand-900: #07572f;
+
+  --color-flag-500: #d97706;
+  --color-flag-400: #f59e0b;
+  --color-danger-500: #dc2626;
+  --color-danger-400: #f87171;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1rem;
+}
+
+/* Semantic surface tokens. Components reference these rather than raw greys,
+   so dark mode is a variable swap instead of a `dark:` class on every node. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --surface: #ffffff;
+  --surface-2: #f6f7f6;
+  --surface-3: #edefed;
+  --surface-inverse: #101613;
+  --line: #e2e5e2;
+  --line-strong: #cfd4d0;
+  --content: #101613;
+  --content-muted: #5f6a64;
+  --content-faint: #8b948e;
+  --btn-bg: #0a8746;
+  --btn-bg-hover: #086b39;
+  --btn-fg: #ffffff;
+  --accent-soft: #ecfdf3;
+  --accent-soft-line: #c3f2d8;
+  --accent-on-soft: #086b39;
+}
+
+.dark {
+  --surface: #0b0f0d;
+  --surface-2: #141a17;
+  --surface-3: #1d2420;
+  --surface-inverse: #f3f6f4;
+  --line: #26302a;
+  --line-strong: #35413a;
+  --content: #eef2ef;
+  --content-muted: #9aa69f;
+  --content-faint: #6d7a73;
+  /* On dark the bright logo green comes forward with dark text on top —
+     9:1 contrast, and it matches how the logo actually looks. */
+  --btn-bg: #0ebf6b;
+  --btn-bg-hover: #34d67f;
+  --btn-fg: #06120b;
+  --accent-soft: #10241a;
+  --accent-soft-line: #1d3d2c;
+  --accent-on-soft: #6be7a4;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-content-faint: var(--content-faint);
+  --color-btn: var(--btn-bg);
+  --color-btn-hover: var(--btn-bg-hover);
+  --color-btn-fg: var(--btn-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-soft-line: var(--accent-soft-line);
+  --color-accent-on-soft: var(--accent-on-soft);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--surface);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--content);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
