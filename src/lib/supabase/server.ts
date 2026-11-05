@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "./types";
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./env";
+import { PROFILE_COLUMNS } from "@/lib/profileColumns";
 
 /**
  * Supabase client for server components, route handlers and server actions.
@@ -43,7 +44,7 @@ export async function getCurrentProfile() {
 
   const { data } = await supabase
     .from("profiles")
-    .select("*")
+    .select(PROFILE_COLUMNS)
     .eq("id", user.id)
     .single();
 

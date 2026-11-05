@@ -57,6 +57,18 @@ database itself refuses.
 To check it worked: sidebar → **Table Editor**. You should see `profiles`,
 `listings`, `messages`, and about eight others.
 
+### 1a. Run the numbered files in order
+
+Run `002_auth_helpers.sql` through `007_security_fixes.sql` the same way, in
+number order (skip `005_demo_content.sql` unless you want sample posts).
+`007` keeps phone numbers private, limits what message and exchange updates
+can change, retires the starter invite codes, and adds `create_invites()`.
+Make real invite codes with:
+
+```sql
+select * from public.create_invites(5);
+```
+
 ### 1b. Confirm it's actually locked down
 
 Open a **New query**, paste in `supabase/verify.sql`, and run it. You'll get a

@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { fetchListing } from "@/lib/fetchListings";
 import { profileToUser } from "@/lib/fetchListings";
+import { PROFILE_COLUMNS } from "@/lib/profileColumns";
 
 /**
  * A thread is either a real conversation or one of the sample ones.
@@ -41,7 +42,7 @@ export default async function ThreadPage({
     const [listingBundle, { data: otherProfile }, { data: messages }, { data: offers }] =
       await Promise.all([
         fetchListing(convo.listing_id),
-        supabase.from("profiles").select("*").eq("id", otherId).maybeSingle(),
+        supabase.from("profiles").select(PROFILE_COLUMNS).eq("id", otherId).maybeSingle(),
         supabase
           .from("messages")
           .select("*")

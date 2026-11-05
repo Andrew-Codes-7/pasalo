@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { fetchSellerListings } from "@/lib/fetchListings";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import type { User } from "@/lib/types";
+import { PROFILE_COLUMNS } from "@/lib/profileColumns";
 
 /**
  * A profile is either a real account or one of the sample neighbours the
@@ -24,7 +25,7 @@ async function realUser(id: string): Promise<User | null> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("profiles")
-    .select("*")
+    .select(PROFILE_COLUMNS)
     .eq("id", id)
     .maybeSingle();
 

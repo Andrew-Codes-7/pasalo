@@ -683,6 +683,8 @@ end $$;
 -- ============================================================================
 -- FIRST INVITE CODES
 -- Change these before running, then hand them out. Each works exactly once.
+-- These exact codes are public on GitHub: 007_security_fixes.sql retires any
+-- still unused and adds create_invites() for random ones.
 -- ============================================================================
 
 insert into public.invites (code) values

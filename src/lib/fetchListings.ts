@@ -2,6 +2,7 @@ import { createClient } from "./supabase/server";
 import { isSupabaseConfigured } from "./supabase/env";
 import type { Listing, User } from "./types";
 import type { ListingRow, ProfileRow } from "./supabase/types";
+import { PROFILE_COLUMNS } from "@/lib/profileColumns";
 
 /**
  * Reading real listings out of the database.
@@ -162,7 +163,7 @@ export async function fetchListing(id: string): Promise<{
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("*")
+    .select(PROFILE_COLUMNS)
     .eq("id", listing.sellerId)
     .maybeSingle();
 

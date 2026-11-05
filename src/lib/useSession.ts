@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "./supabase/client";
 import type { ProfileRow } from "./supabase/types";
+import { PROFILE_COLUMNS } from "@/lib/profileColumns";
 
 export type SessionState = {
   user: User | null;
@@ -36,7 +37,7 @@ export function useSession(): SessionState {
       }
       const { data } = await supabase
         .from("profiles")
-        .select("*")
+        .select(PROFILE_COLUMNS)
         .eq("id", user.id)
         .maybeSingle();
       if (active) setState({ user, profile: data ?? null, loading: false });
